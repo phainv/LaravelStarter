@@ -15,3 +15,5 @@ yarn-error.log
 #Ignore build
 mix-manifest.json
 package-lock.json
+/public/css/*.css
+/public/js/*.js
