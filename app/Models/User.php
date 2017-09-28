@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -30,7 +30,8 @@ class User extends Authenticatable
     /**
      * Hash any password being inserted.
      *
-     * @param  string $value
+     * @param string $value
+     *
      * @return void
      */
     public function setPasswordAttribute($value)
