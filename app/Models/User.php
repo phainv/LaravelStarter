@@ -19,6 +19,15 @@ class User extends Authenticatable
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'full_name'
+    ];
+
+    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
@@ -36,5 +45,25 @@ class User extends Authenticatable
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = bcrypt($value);
+    }
+
+    /**
+     * Get fullname attribute.
+     *
+     * @return array|null
+     */
+    public function getFullNameAttribute()
+    {
+        return sprintf('%s %s', $this->first_name, $this->last_name);
+    }
+
+    /**
+     * Get all user's accounts.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\Relation
+     */
+    public function accounts()
+    {
+        return $this->hasMany(Account::class);
     }
 }
