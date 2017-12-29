@@ -1,8 +1,5 @@
 <?php
 
-use App\Http\Resources\UserResource;
-use App\Models\User;
-use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,11 +12,11 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function() {
-	Route::resources([
-		'users' => 'UserController',
-		'accounts' => 'AccountController',
-	]);
-	Route::put('accounts/{id}/default', 'AccountController@makeDefault');
-	Route::post('accounts/add', 'AccountController@addMoreAccount');
+Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
+    Route::resources([
+        'users' => 'UserController',
+        'accounts' => 'AccountController',
+    ]);
+    Route::put('accounts/{id}/default', 'AccountController@makeDefault');
+    Route::post('accounts/add', 'AccountController@addMoreAccount');
 });
