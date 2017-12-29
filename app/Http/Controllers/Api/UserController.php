@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 
 class UserController extends Controller
 {
@@ -74,7 +74,7 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $user->update(array_filter($request->only('first_name', 'last_name', 'gender', 'email', 'active', 'address', 'mobile')));
-        
+
         return new UserResource($user->load('accounts'));
     }
 
@@ -91,7 +91,7 @@ class UserController extends Controller
 
     // /**
     //  * Make default account.
-    //  * 
+    //  *
     //  * @param  App\Models\User   $user
     //  * @return Illuminate\Http\Response
     //  */

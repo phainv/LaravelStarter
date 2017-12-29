@@ -2,10 +2,9 @@
 
 namespace App\Services\PaymentWall;
 
-use App\Contracts\CardGenerator;
-use App\Models\Account;
 use App\Models\Code;
-use App\Models\Customer;
+use App\Models\Account;
+use App\Contracts\CardGenerator;
 
 class AccountNumberGenerator implements CardGenerator
 {

@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 use App\Contracts\CardGenerator;
-use App\Services\PaymentWall\AccountNumberGenerator;
 use Illuminate\Support\ServiceProvider;
+use App\Services\PaymentWall\AccountNumberGenerator;
 
 class ContractServiceProvider extends ServiceProvider
 {
@@ -14,7 +14,7 @@ class ContractServiceProvider extends ServiceProvider
      * @var array
      */
     protected $services = [
-        CardGenerator::class => AccountNumberGenerator::class
+        CardGenerator::class => AccountNumberGenerator::class,
     ];
 
     /**
