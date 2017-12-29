@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class CreateTransactionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,19 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('account_id')->unsigned()->default(0);
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
-            $table->string('email')->unique()->nullable();
-            $table->string('password')->nullable();
-            $table->string('mobile')->nullable();
-            $table->string('gender')->nullable();
-            $table->string('address')->nullable();
-            $table->boolean('active')->default(1);
-            $table->rememberToken()->nullable();
+            $table->text('note')->nullable();
+            $table->decimal('cash', 20, 2)->nullable()->default(0);
+            $table->string('type')->nullable();
+            $table->string('status')->default('processing');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('account_id')->references('id')->on('accounts');
         });
     }
 
@@ -36,6 +36,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('transactions');
     }
 }
