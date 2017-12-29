@@ -16,5 +16,10 @@ use Illuminate\Http\Request;
 */
 
 Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function() {
-	Route::resource('users', 'UserController');
+	Route::resources([
+		'users' => 'UserController',
+		'accounts' => 'AccountController',
+	]);
+	Route::put('accounts/{id}/default', 'AccountController@makeDefault');
+	Route::post('accounts/add', 'AccountController@addMoreAccount');
 });

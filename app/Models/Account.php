@@ -12,7 +12,7 @@ class Account extends Model
      * @var array
      */
     protected $fillable = [
-        'account_number', 'amount', 'daily_limit', 'currency', 'default', 'status'
+        'account_number', 'amount', 'topup_limit', 'withdraw_limit', 'currency', 'default', 'status'
     ];
 
     /**
@@ -25,6 +25,15 @@ class Account extends Model
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'is_virtual'
+    ];
+
+    /**
      * Get the user.
      *
      * @return \Illuminate\Database\Eloquent\Relations\Relation
@@ -32,5 +41,35 @@ class Account extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Check account is virtual account.
+     * 
+     * @return boolean
+     */
+    public function isVirtual()
+    {
+        return $this->currency ? false : true;
+    }
+
+    /**
+     * Get fullname attribute.
+     *
+     * @return array|null
+     */
+    public function getIsVirtualAttribute()
+    {
+        return $this->isVirtual();
+    }
+
+    /**
+     * Get all transaction's of account.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\Relation
+     */
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
     }
 }

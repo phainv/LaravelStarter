@@ -10,7 +10,10 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 import http from './utils/http';
+import VueSweetAlert from 'vue-sweetalert';
+
 Vue.use(http);
+Vue.use(VueSweetAlert);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

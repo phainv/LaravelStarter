@@ -7,3 +7,13 @@
 
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+.btn {
+	&:focus {
+		outline: none;
+	}
+}
+
+.m-b {
+	margin-bottom: 10px;
+}

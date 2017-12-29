@@ -11,9 +11,9 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return redirect('users');
+});
 
 Route::group(['namespace' => 'PaymentWall'], function() {
 	Route::resource('users', 'UserController');

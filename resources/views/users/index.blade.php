@@ -63,7 +63,9 @@
                                 </div>
                             @endif
 
-                            <center><a href="" class="btn btn-info">Manage</a></center>
+                            <center>
+                                <a href="{{ route('users.show', $user->id) }}" class="btn btn-info">Manage</a>
+                            </center>
                         </div>
                     </div>
                 @endforeach

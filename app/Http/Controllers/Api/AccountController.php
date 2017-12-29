@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Contracts\CardGenerator;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\UserResource;
+use App\Models\Account;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class AccountController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(User $user)
+    public function index()
     {
-        return $user;
+        //
     }
 
     /**
@@ -46,11 +47,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Account $account)
     {
-        $user = $user->load('accounts');
-
-        return new UserResource($user);
+        return $account->load('transactions');
     }
 
     /**
@@ -71,11 +70,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
-        $user->update(array_filter($request->only('first_name', 'last_name', 'gender', 'email', 'active', 'address', 'mobile')));
-        
-        return new UserResource($user->load('accounts'));
+        //
     }
 
     /**
@@ -89,18 +86,38 @@ class UserController extends Controller
         //
     }
 
-    // /**
-    //  * Make default account.
-    //  * 
-    //  * @param  App\Models\User   $user
-    //  * @return Illuminate\Http\Response
-    //  */
-    // public function makeDefault(Request $request, $id)
-    // {
-    //     $user = User::findOrFail($id);
-    //     $user->accounts()->update(['default' => 0]);
-    //     $user->accounts()->where('id', $request->account)->update(['default' => 1]);
+    /**
+     * Make defalt account.
+     * 
+     * @param  \App\Models\Account $account
+     * @return \Illuminate\Http\Response
+     */
+    public function makeDefault($id)
+    {
+        $account = Account::findOrFail($id);
 
-    //     return new UserResource($user->load('accounts'));
-    // }
+        if (!$account->isVirtual()) {
+            Account::where('user_id', $account->user_id)->update(['default' => 0]);
+            $account->update(['default' => 1]);
+        }
+    }
+
+    /**
+     * Add more account.
+     * 
+     * @param \Illuminate\Http\Request $request
+     */
+    public function addMoreAccount(Request $request, CardGenerator $generator)
+    {
+        $this->validate($request, [
+            'currency' => 'nullable|in:USD,EUR',
+            'user_id' => 'required'
+        ]);
+
+        $user = User::findOrFail($request->user_id);
+        $user->accounts()->save(new Account([
+            'account_number' => $generator->generate(),
+            'currency' => $request->currency ?: NULL
+        ]));
+    }
 }
