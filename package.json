@@ -19,6 +19,7 @@
         "vue": "^2.5.7"
     },
     "dependencies": {
+        "vue-swal": "^0.0.6",
         "vue-sweetalert": "^0.1.18"
     }
 }
