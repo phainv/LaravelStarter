@@ -2,10 +2,10 @@
 
 namespace App\Services\PaymentWall;
 
-use App\Contracts\TransactionContract;
-use App\Events\TransactionCreated;
 use App\Models\Account;
 use App\Models\Transaction;
+use App\Events\TransactionCreated;
+use App\Contracts\TransactionContract;
 
 class PaymentTransaction implements TransactionContract
 {
@@ -14,7 +14,7 @@ class PaymentTransaction implements TransactionContract
         $transaction = $account->transactions()->save(new Transaction([
             'cash' => $cash,
             'type' => $type,
-            'status' => 'processing'
+            'status' => 'processing',
         ]));
 
         event(new TransactionCreated($transaction));

@@ -2,11 +2,11 @@
 
 namespace App\Listeners;
 
-use \Exception;
-use App\Events\TransactionCreated;
+use Exception;
+use Carbon\Carbon;
 use App\Models\Account;
 use App\Models\Transaction;
-use Carbon\Carbon;
+use App\Events\TransactionCreated;
 
 class ExecuteTransaction
 {
@@ -41,12 +41,13 @@ class ExecuteTransaction
                 case 'withdraw':
                     $this->executeWithdraw($account, $transaction);
                     break;
-                
+
                 default:
                     return 'default';
                     break;
             }
         }
+
         return 'end';
     }
 
@@ -61,7 +62,7 @@ class ExecuteTransaction
     {
         try {
             if ($transaction->cash > $account->topup_limit) {
-                throw new Exception("ERROR-001");
+                throw new Exception('ERROR-001');
             }
 
             $totallyTransaction = $account->transactions()
@@ -69,11 +70,11 @@ class ExecuteTransaction
                                         ->toDateString())->get()->sum('cash');
 
             if (($totallyTransaction + $transaction->cash) > $account->topup_limit) {
-                throw new Exception("ERROR-001");
+                throw new Exception('ERROR-001');
             }
 
             if (! $account->status) {
-                throw new Exception("ERROR-003");
+                throw new Exception('ERROR-003');
             }
 
             $account->amount = $account->amount + $transaction->cash;
@@ -101,7 +102,7 @@ class ExecuteTransaction
     {
         try {
             if ($transaction->cash > $account->withdraw_limit) {
-                throw new Exception("ERROR-002");
+                throw new Exception('ERROR-002');
             }
 
             $totallyTransaction = $account->transactions()
@@ -109,15 +110,15 @@ class ExecuteTransaction
                                         ->toDateString())->get()->sum('cash');
 
             if (($totallyTransaction + $transaction->cash) > $account->withdraw_limit) {
-                throw new Exception("ERROR-002");
+                throw new Exception('ERROR-002');
             }
 
             if (! $account->status) {
-                throw new Exception("ERROR-003");
+                throw new Exception('ERROR-003');
             }
 
             if ($account->amount < $transaction->cash) {
-                throw new Exception("ERROR-004");
+                throw new Exception('ERROR-004');
             }
 
             $account->amount = $account->amount - $transaction->cash;

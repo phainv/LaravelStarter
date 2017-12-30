@@ -1,8 +1,5 @@
 <?php
 
-use App\Http\Resources\UserResource;
-use App\Models\User;
-use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,14 +12,14 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function() {
-	Route::resources([
-		'users' => 'UserController',
-		'accounts' => 'AccountController',
-	]);
-	Route::post('accounts/add', 'AccountController@addMoreAccount');
-	Route::put('accounts/{id}/default', 'AccountController@makeDefault');
-	Route::put('accounts/{id}/change-daily-limit', 'AccountController@changeLimitDaily');
-	Route::put('accounts/{id}/{type}', 'AccountController@toogleFreezeAccount');
-	Route::post('accounts/{id}/new/transaction', 'AccountController@transactionAccount');
+Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
+    Route::resources([
+        'users' => 'UserController',
+        'accounts' => 'AccountController',
+    ]);
+    Route::post('accounts/add', 'AccountController@addMoreAccount');
+    Route::put('accounts/{id}/default', 'AccountController@makeDefault');
+    Route::put('accounts/{id}/change-daily-limit', 'AccountController@changeLimitDaily');
+    Route::put('accounts/{id}/{type}', 'AccountController@toogleFreezeAccount');
+    Route::post('accounts/{id}/new/transaction', 'AccountController@transactionAccount');
 });

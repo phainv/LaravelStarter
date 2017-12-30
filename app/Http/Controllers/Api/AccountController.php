@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Contracts\CardGenerator;
-use App\Http\Controllers\Controller;
-use App\Models\Account;
 use App\Models\User;
-use App\Traits\TransactionTraits;
+use App\Models\Account;
 use Illuminate\Http\Request;
+use App\Contracts\CardGenerator;
+use App\Traits\TransactionTraits;
+use App\Http\Controllers\Controller;
 
 class AccountController extends Controller
 {
     use TransactionTraits;
+
     /**
      * Display a listing of the resource.
      *
@@ -136,7 +137,7 @@ class AccountController extends Controller
     {
         $this->validate($request, [
             'value' => 'required|integer|min:0',
-            'type' => 'required|in:topup_limit,withdraw_limit'
+            'type' => 'required|in:topup_limit,withdraw_limit',
         ]);
 
         $account = Account::findOrFail($id);
@@ -154,7 +155,7 @@ class AccountController extends Controller
     public function toogleFreezeAccount($id, $type)
     {
         $this->validate(request(), [
-            'type' => 'required|in:freeze,unfreeze'
+            'type' => 'required|in:freeze,unfreeze',
         ]);
 
         $account = Account::findOrFail($id);
@@ -171,7 +172,7 @@ class AccountController extends Controller
     {
         $this->validate($request, [
             'type' => 'required|in:topup,withdraw',
-            'cash' => 'required|integer|min:1'
+            'cash' => 'required|integer|min:1',
         ]);
 
         $account = Account::findOrFail($id);
