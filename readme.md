@@ -23,7 +23,7 @@ Import file `.sql` attached or run command migrate database
 $ php artisan migrate
 ```
 
-You can seed user account using `php artisan db:seed`
+You can seed user account using command `php artisan db:seed`
 
 ### Rebuild file
 
@@ -45,3 +45,9 @@ or click here [Live demo](http://35.187.231.73)
 ### Testing
 
 Updating...
+
+### Contact Us
+
+Email: nguyenphai.cntt@gmail.com
+Mobile: 84985503074
+Skype: phai.nv
