@@ -33,7 +33,7 @@ class Transaction extends Model
      * @var array
      */
     protected $appends = [
-        'reason_message'
+        'reason_message',
     ];
 
     /**
