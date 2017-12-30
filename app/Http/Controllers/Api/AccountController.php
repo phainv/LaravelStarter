@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\User;
-use App\Traits\TransactionTraits;
-use App\Models\Account;
-use Illuminate\Http\Request;
 use App\Contracts\CardGenerator;
 use App\Http\Controllers\Controller;
+use App\Models\Account;
+use App\Models\User;
+use App\Traits\TransactionTraits;
+use Illuminate\Http\Request;
 
 class AccountController extends Controller
 {
@@ -51,7 +51,7 @@ class AccountController extends Controller
      */
     public function show(Account $account)
     {
-        return $account->load(['transactions' => function($q) {
+        return $account->load(['transactions' => function ($q) {
             $q->latest();
         }]);
     }
@@ -127,7 +127,7 @@ class AccountController extends Controller
 
     /**
      * Chnage daily limit of account.
-     * 
+     *
      * @param  \Illuminate\Http\Request $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -146,7 +146,7 @@ class AccountController extends Controller
 
     /**
      * Toogle freeze account.
-     * 
+     *
      * @param  int $id
      * @param  string $type
      * @return \Illuminate\Http\Response

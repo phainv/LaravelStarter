@@ -2,13 +2,11 @@
 
 namespace App\Listeners;
 
+use \Exception;
 use App\Events\TransactionCreated;
 use App\Models\Account;
 use App\Models\Transaction;
 use Carbon\Carbon;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
-use \Exception;
 
 class ExecuteTransaction
 {
@@ -54,7 +52,7 @@ class ExecuteTransaction
 
     /**
      * Execute topup.
-     * 
+     *
      * @param  \App\Models\Account     $account
      * @param  \App\Models\Transaction $transaction
      * @return Illuminate\Http\Response
@@ -85,7 +83,6 @@ class ExecuteTransaction
             $transaction->save();
 
             return;
-
         } catch (Exception $e) {
             $transaction->reason = $e->getMessage();
             $transaction->status = Transaction::UNSUCCESSFUL;
@@ -95,7 +92,7 @@ class ExecuteTransaction
 
     /**
      * Execute topup.
-     * 
+     *
      * @param  \App\Models\Account     $account
      * @param  \App\Models\Transaction $transaction
      * @return Illuminate\Http\Response
@@ -130,7 +127,6 @@ class ExecuteTransaction
             $transaction->save();
 
             return;
-
         } catch (Exception $e) {
             $transaction->reason = $e->getMessage();
             $transaction->status = Transaction::UNSUCCESSFUL;

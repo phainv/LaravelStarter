@@ -9,7 +9,7 @@ trait TransactionTraits
 {
     /**
      * Make topup account.
-     * 
+     *
      * @param  \App\Models\Account $account
      * @return \Illuminate\Http\Response
      */
