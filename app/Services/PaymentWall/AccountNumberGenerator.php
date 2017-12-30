@@ -10,7 +10,7 @@ use App\Models\Customer;
 class AccountNumberGenerator implements CardGenerator
 {
     /**
-     * Generate an unique number.
+     * Generate an unique card number.
      *
      * @return int
      */
@@ -24,7 +24,7 @@ class AccountNumberGenerator implements CardGenerator
     }
 
     /**
-     * Generate random number.
+     * Generate card number number.
      *
      * @param  int $length
      * @return int
@@ -41,7 +41,7 @@ class AccountNumberGenerator implements CardGenerator
     }
 
     /**
-     * Check if the code is valid.
+     * Check if the card number is valid.
      *
      * @param  int $code
      * @return bool

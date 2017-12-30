@@ -20,6 +20,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function() {
 		'users' => 'UserController',
 		'accounts' => 'AccountController',
 	]);
-	Route::put('accounts/{id}/default', 'AccountController@makeDefault');
 	Route::post('accounts/add', 'AccountController@addMoreAccount');
+	Route::put('accounts/{id}/default', 'AccountController@makeDefault');
+	Route::put('accounts/{id}/change-daily-limit', 'AccountController@changeLimitDaily');
+	Route::put('accounts/{id}/{type}', 'AccountController@toogleFreezeAccount');
+	Route::post('accounts/{id}/new/transaction', 'AccountController@transactionAccount');
 });

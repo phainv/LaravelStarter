@@ -6,10 +6,12 @@ use App\Contracts\CardGenerator;
 use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\User;
+use App\Traits\TransactionTraits;
 use Illuminate\Http\Request;
 
 class AccountController extends Controller
 {
+    use TransactionTraits;
     /**
      * Display a listing of the resource.
      *
@@ -49,7 +51,9 @@ class AccountController extends Controller
      */
     public function show(Account $account)
     {
-        return $account->load('transactions');
+        return $account->load(['transactions' => function($q) {
+            $q->latest();
+        }]);
     }
 
     /**
@@ -119,5 +123,59 @@ class AccountController extends Controller
             'account_number' => $generator->generate(),
             'currency' => $request->currency ?: NULL
         ]));
+    }
+
+    /**
+     * Chnage daily limit of account.
+     * 
+     * @param  \Illuminate\Http\Request $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function changeLimitDaily(Request $request, $id)
+    {
+        $this->validate($request, [
+            'value' => 'required|integer|min:0',
+            'type' => 'required|in:topup_limit,withdraw_limit'
+        ]);
+
+        $account = Account::findOrFail($id);
+        $account->{$request->type} = intval($request->value);
+        $account->save();
+    }
+
+    /**
+     * Toogle freeze account.
+     * 
+     * @param  int $id
+     * @param  string $type
+     * @return \Illuminate\Http\Response
+     */
+    public function toogleFreezeAccount($id, $type)
+    {
+        $this->validate(request(), [
+            'type' => 'required|in:freeze,unfreeze'
+        ]);
+
+        $account = Account::findOrFail($id);
+        if (request('type') == 'freeze') {
+            $account->status = 0;
+        } elseif (request('type') == 'unfreeze') {
+            $account->status = 1;
+        }
+
+        $account->save();
+    }
+
+    public function transactionAccount(Request $request, $id)
+    {
+        $this->validate($request, [
+            'type' => 'required|in:topup,withdraw',
+            'cash' => 'required|integer|min:1'
+        ]);
+
+        $account = Account::findOrFail($id);
+
+        return $this->topup($account);
     }
 }

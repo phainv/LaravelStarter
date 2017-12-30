@@ -22,6 +22,7 @@ class CreateTransactionsTable extends Migration
             $table->decimal('cash', 20, 2)->nullable()->default(0);
             $table->string('type')->nullable();
             $table->string('status')->default('processing');
+            $table->string('reason')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

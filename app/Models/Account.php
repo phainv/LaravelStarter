@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Account extends Model
 {
+    const TOPUP = 'topup';
+
+    const WITHDRAW = 'withdraw';
     /**
      * The attributes that are mass assignable.
      *
