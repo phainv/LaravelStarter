@@ -24,7 +24,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $appends = [
-        'full_name'
+        'full_name',
     ];
 
     /**

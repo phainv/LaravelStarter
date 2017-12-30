@@ -15,7 +15,7 @@ class Account extends Model
      * @var array
      */
     protected $fillable = [
-        'account_number', 'amount', 'topup_limit', 'withdraw_limit', 'currency', 'default', 'status'
+        'account_number', 'amount', 'topup_limit', 'withdraw_limit', 'currency', 'default', 'status',
     ];
 
     /**
@@ -33,7 +33,7 @@ class Account extends Model
      * @var array
      */
     protected $appends = [
-        'is_virtual'
+        'is_virtual',
     ];
 
     /**
@@ -48,8 +48,8 @@ class Account extends Model
 
     /**
      * Check account is virtual account.
-     * 
-     * @return boolean
+     *
+     * @return bool
      */
     public function isVirtual()
     {

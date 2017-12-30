@@ -395,10 +395,12 @@
                     $this.$http.post(`accounts/${account.id}/new/transaction`, {
                         type: type,
                         cash: cash
-                    }).then(() => $this.reloadData())
-                    .catch(({ response }) => {})
+                    }).then(({ data }) => {
+                        $this.reloadData();
+                        $this.amounts.topup.cash = null
+                        $this.amounts.withdraw.cash = null
+                    }).catch(({ response }) => {})
                 }, function (dismiss) {})
-
             },
             reloadData() {
                 this.fetchAccount()

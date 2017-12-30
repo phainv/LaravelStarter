@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Contracts\CardGenerator;
-use App\Http\Controllers\Controller;
-use App\Models\Account;
 use App\Models\User;
 use App\Traits\TransactionTraits;
+use App\Models\Account;
 use Illuminate\Http\Request;
+use App\Contracts\CardGenerator;
+use App\Http\Controllers\Controller;
 
 class AccountController extends Controller
 {
@@ -92,7 +92,7 @@ class AccountController extends Controller
 
     /**
      * Make defalt account.
-     * 
+     *
      * @param  \App\Models\Account $account
      * @return \Illuminate\Http\Response
      */
@@ -100,7 +100,7 @@ class AccountController extends Controller
     {
         $account = Account::findOrFail($id);
 
-        if (!$account->isVirtual()) {
+        if (! $account->isVirtual()) {
             Account::where('user_id', $account->user_id)->update(['default' => 0]);
             $account->update(['default' => 1]);
         }
@@ -108,20 +108,20 @@ class AccountController extends Controller
 
     /**
      * Add more account.
-     * 
+     *
      * @param \Illuminate\Http\Request $request
      */
     public function addMoreAccount(Request $request, CardGenerator $generator)
     {
         $this->validate($request, [
             'currency' => 'nullable|in:USD,EUR',
-            'user_id' => 'required'
+            'user_id' => 'required',
         ]);
 
         $user = User::findOrFail($request->user_id);
         $user->accounts()->save(new Account([
             'account_number' => $generator->generate(),
-            'currency' => $request->currency ?: NULL
+            'currency' => $request->currency ?: null,
         ]));
     }
 
