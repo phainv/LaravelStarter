@@ -2,8 +2,8 @@
 
 namespace App\Traits;
 
-use App\Contracts\TransactionContract;
 use App\Models\Account;
+use App\Contracts\TransactionContract;
 
 trait TransactionTraits
 {
