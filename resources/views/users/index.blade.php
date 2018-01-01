@@ -36,8 +36,8 @@
                                                 <th>Account Number</th>
                                                 <th>Amount</th>
                                                 <th>Currency</th>
-                                                <th>Daily Limit</th>
-                                                <th>Default</th>
+                                                <th>Daily Topup Limit</th>
+                                                <th>Daily Withdraw Limit</th>
                                                 <th>Status</th>
                                                 <th>Created At</th>
                                             </tr>
@@ -47,10 +47,10 @@
                                                 <tr>
                                                     <td><b>{{ $account->account_number }}</b></td>
                                                     <td>{{ $account->amount }}</td>
-                                                    <td>{{ $account->currency }}</td>
-                                                    <td>{{ $account->daily_limit }}</td>
-                                                    <td>{{ $account->default }}</td>
-                                                    <td>{{ $account->status }}</td>
+                                                    <td>{{ $account->currency ?: 'Virtual Account' }}</td>
+                                                    <td>{{ $account->topup_limit }}</td>
+                                                    <td>{{ $account->withdraw_limit }}</td>
+                                                    <td>{{ $account->status ? 'Active' : 'Freezed' }}</td>
                                                     <td>{{ $account->created_at }}</td>
                                                 </tr>
                                             @endforeach
