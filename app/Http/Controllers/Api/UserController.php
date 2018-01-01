@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -73,6 +74,12 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $this->validate($request, [
+            'email' => [
+                'email',
+                Rule::unique('users')->ignore($user->id)
+            ]
+        ]);
         $user->update(array_filter($request->only('first_name', 'last_name', 'gender', 'email', 'active', 'address', 'mobile')));
 
         return new UserResource($user->load('accounts'));

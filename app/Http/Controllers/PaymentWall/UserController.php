@@ -17,7 +17,6 @@ class UserController extends Controller
     {
         $users = User::with('accounts')->latest()->get();
 
-        // dd($users->toArray());
         return view('users.index', compact('users'));
     }
 
@@ -28,7 +27,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('users.create');
     }
 
     /**
@@ -37,9 +36,20 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, User $user)
     {
-        //
+        $this->validate($request, [
+            'first_name' => 'required|min:2|max:50',
+            'last_name' => 'required|min:2|max:50',
+            'email' => 'required|email|unique:users',
+            'mobile' => 'required|digits_between:10,11',
+            'gender' => 'required|in:male,female',
+            'address' => 'required|min:2',
+        ]);
+        
+        $user->create($request->only('first_name', 'last_name', 'email', 'mobile', 'gender', 'address'));
+
+        return redirect()->route('users.index');
     }
 
     /**

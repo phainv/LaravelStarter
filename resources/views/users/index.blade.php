@@ -5,6 +5,9 @@
     <div class="row">
         <div class="col-md-12">
 
+            <a href="{{ route('users.create') }}" class="btn btn-primary pull-right m-b">Register new user</a>
+            <div class="clearfix"></div>
+
             @if($users->isNotEmpty())
                 @foreach($users as $user)
                     <div class="panel panel-default">
