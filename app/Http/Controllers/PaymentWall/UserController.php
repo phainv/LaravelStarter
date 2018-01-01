@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\PaymentWall;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
@@ -46,7 +46,7 @@ class UserController extends Controller
             'gender' => 'required|in:male,female',
             'address' => 'required|min:2',
         ]);
-        
+
         $user->create($request->only('first_name', 'last_name', 'email', 'mobile', 'gender', 'address'));
 
         return redirect()->route('users.index');
