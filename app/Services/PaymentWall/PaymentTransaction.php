@@ -2,10 +2,10 @@
 
 namespace App\Services\PaymentWall;
 
+use App\Contracts\TransactionContract;
+use App\Events\TransactionCreated;
 use App\Models\Account;
 use App\Models\Transaction;
-use App\Events\TransactionCreated;
-use App\Contracts\TransactionContract;
 
 class PaymentTransaction implements TransactionContract
 {

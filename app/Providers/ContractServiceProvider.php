@@ -4,9 +4,9 @@ namespace App\Providers;
 
 use App\Contracts\CardGenerator;
 use App\Contracts\TransactionContract;
-use Illuminate\Support\ServiceProvider;
-use App\Services\PaymentWall\PaymentTransaction;
 use App\Services\PaymentWall\AccountNumberGenerator;
+use App\Services\PaymentWall\PaymentTransaction;
+use Illuminate\Support\ServiceProvider;
 
 class ContractServiceProvider extends ServiceProvider
 {

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\User;
-use App\Models\Account;
-use Illuminate\Http\Request;
 use App\Contracts\CardGenerator;
-use App\Traits\TransactionTraits;
 use App\Http\Controllers\Controller;
+use App\Models\Account;
+use App\Models\User;
+use App\Traits\TransactionTraits;
+use Illuminate\Http\Request;
 
 class AccountController extends Controller
 {
