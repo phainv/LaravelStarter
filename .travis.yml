@@ -1,0 +1,28 @@
+sudo: required
+language: php
+
+php:
+  - 7.1
+  - 7.2
+
+before_script:
+  - cp .env.travis .env
+  - composer install --prefer-source --no-interaction --dev
+  - php artisan key:generate
+  - php artisan migrate
+
+before_install:
+  - mysql -e 'CREATE DATABASE laravelstarter;'
+
+branches:
+  except:
+    - /^analysis-/
+
+script:
+  - ./vendor/bin/phpunit
+
+services:
+  - mysql
+
+notifications:
+  email: false
