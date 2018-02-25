@@ -12,7 +12,7 @@ let mix = require('laravel-mix');
  */
 
 mix.js('resources/assets/js/app.js', 'public/js')
-  .extract(['jquery', 'bootstrap-sass', 'vue', 'axios'])
+  .extract(['jquery', 'bootstrap', 'vue', 'axios'])
   .autoload({
     jquery: ['$', 'window.jQuery', 'jQuery', 'jquery'],
   })
